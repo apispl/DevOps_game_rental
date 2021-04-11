@@ -1,7 +1,8 @@
 const express = require('express');
+const app = express();
+
 const cors = require('cors');
 const gameDaoPostgres = require('./dao/GameDaoPostgres');
-const app = express();
 
 app.use(cors());
 app.use(express.json());
@@ -16,5 +17,5 @@ app.delete('/games', gameDaoPostgres.deleteGame);
 
 const PORT = 5000;
 app.listen(5000, () => {
-    console.log(`API listening on port ${PORT}`)
+    console.log(`API listening on port server my ${PORT}`)
 });
