@@ -12,6 +12,14 @@ class GameService {
     create(data) {
         return http.post("/games", data);
     }
+
+    update(id, data) {
+        return http.put(`/games/${id}`, data);
+    }
+    
+    delete(id) {
+        return http.delete(`/games/${id}`);
+    }
 }
 
 export default new GameService();

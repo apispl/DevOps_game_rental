@@ -4,7 +4,6 @@ import gameService from "../services/game.service";
 export default class AddGame extends Component {
     constructor(props) {
         super(props);
-        this.onChangeId = this.onChangeId.bind(this);
         this.onChangeTitle = this.onChangeTitle.bind(this);
         this.onChangePublishDate = this.onChangePublishDate.bind(this);
         this.onChangeManufacturer = this.onChangeManufacturer.bind(this);
@@ -19,12 +18,6 @@ export default class AddGame extends Component {
     
           submitted: false
         };
-      }
-
-      onChangeId(e) {
-        this.setState({
-          id: e.target.value
-        });
       }
     
       onChangeTitle(e) {
@@ -93,18 +86,6 @@ export default class AddGame extends Component {
               </div>
             ) : (
               <div>
-                <div className="form-group">
-                  <label htmlFor="id">ID</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="id"
-                    required
-                    value={this.state.id}
-                    onChange={this.onChangeId}
-                    name="id"
-                  />
-                </div>
                 <div className="form-group">
                   <label htmlFor="title">Title</label>
                   <input

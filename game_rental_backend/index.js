@@ -13,7 +13,8 @@ gameDaoPostgres.errorListener();
 app.get('/games', gameDaoPostgres.getGames);
 app.get('/games/:id', gameDaoPostgres.getGameById);
 app.post('/games', gameDaoPostgres.createGame);
-app.delete('/games', gameDaoPostgres.deleteGame);
+app.put('/games/:id', gameDaoPostgres.updateGame);
+app.delete('/games/:id', gameDaoPostgres.deleteGame);
 
 const PORT = 5000;
 app.listen(5000, () => {

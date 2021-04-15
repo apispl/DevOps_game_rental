@@ -31,9 +31,9 @@ services:
             - POSTGRES_HOST=mypostgres
         ports: 
             - "5000:5000"
-    myfrontendreact:
-        build:
-            dockerfile: Dockerfile
-            context: './game-rental-frontend'
-        ports: 
-            - "3000:3000"
+    # myfrontendreact:
+    #     build:
+    #         dockerfile: Dockerfile
+    #         context: './game-rental-frontend'
+    #     ports: 
+    #         - "3000:3000"
