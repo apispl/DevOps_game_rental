@@ -64,18 +64,55 @@ const getGameById = (request, response) => {
 
 const createGame = (request, response) => {
   const { id, title, publishDate, manufacturer } = request.body
-  redisClient.hmset(id, 'id', id, 'title', title, "publishDate", publishDate, 'manufacturer', manufacturer);
-  pgClient.query('INSERT INTO games (id, title, publishDate, manufacturer) VALUES ($1, $2, $3, $4)', [id, title, publishDate, manufacturer], (error, result) => {
+  console.log(request.body);
+  
+  pgClient.query('INSERT INTO games (title, publishDate, manufacturer) VALUES ($1, $2, $3)', [title, publishDate, manufacturer], (error, result) => {
     if (error) throw error;
     response.status(201).send(`Game added!`)
-  })
+  });
+
+  pgClient.query('SELECT MAX(id) FROM games', (error, results) => {
+    if (error) throw error;
+    console.log('Postgres ID:' + results.rows[0].max);
+    console.log('Redis ID:' + results.rows[0].max+1);
+    redisClient.hmset(results.rows[0].max, 'id', results.rows[0].max, 'title', title, "publishDate", publishDate, 'manufacturer', manufacturer);
+  });
+}
+
+const updateGame = (request, response) => {
+  const id = parseInt(request.params.id)
+  const { title, publishDate, manufacturer } = request.body
+
+  pgClient.query('UPDATE games SET title = $1, publishDate = $2, manufacturer = $3 WHERE id = $4', [title, publishDate, manufacturer, id], (error, results) => {
+      if (error) throw error;
+
+      redisClient.exists(id, (err, ok) => {
+        if (err) throw err;
+        if (ok == 1) {
+          console.log('Redis update with ID: ' + id);
+          redisClient.hmset(id, 'id', id, 'title', title, "publishDate", publishDate, 'manufacturer', manufacturer);
+        }
+      });
+
+      response.status(200).send(`Game modified with ID: ${id}`)
+    }
+  )
 }
 
 const deleteGame = (request, response) => {
-  const id = parseInt(request.params.id)
-
+  const id = parseInt(request.params.id);
+  
   pgClient.query('DELETE FROM games WHERE id = $1', [id], (error, result) => {
     if (error) throw error;
+    
+    redisClient.del(request.params.id, (error, response) => {
+      if (response == 1) {
+        console.log("Deleted Successfully from Redis!")
+     } else{
+        console.log("Doesn't exist in Redis!")
+     }
+    });
+
     response.status(200).send(`Game deleted with ID: ${id}`)
   })
 }
@@ -85,6 +122,7 @@ module.exports = {
     initalize,
     getGames,
     getGameById,
+    updateGame,
     createGame,
     deleteGame,
 }

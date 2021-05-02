@@ -1,13 +1,13 @@
 FROM node:alpine
 
 # zawsze ustawiać, nie opiszczać bo mozemy zaśmiecić
-WORKDIR /opt/myapp
+WORKDIR /opt/app
 
 COPY ./package.json ./
 
 RUN yarn install
 
-COPY . .
+COPY ./ ./ 
 
-CMD ["node", "index.js"]
+CMD yarn start
 
