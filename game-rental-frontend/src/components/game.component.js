@@ -77,7 +77,8 @@ export default class GameOne extends Component {
     
       updateGame() {
         gameService.update(
-          this.state.currentGame[0].id,
+          this.state.currentGame.id,
+
           this.state.currentGame
         )
           .then(response => {
@@ -91,8 +92,8 @@ export default class GameOne extends Component {
           });
       }
     
-      deleteGame() {    
-        gameService.delete(this.state.currentGame[0].id)
+      deleteGame() {
+        gameService.delete(this.state.currentGame.id)
           .then(response => {
             console.log(response.data);
             this.props.history.push('/games')

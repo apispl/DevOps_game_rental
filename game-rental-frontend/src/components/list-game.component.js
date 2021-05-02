@@ -63,11 +63,10 @@ export default class GameList extends Component {
     console.log(this.state.searchId);
     gameService.get(this.state.searchId)
       .then(response => {
-        console.log(response);
         this.setState({
           games: response.data
         });
-        console.log(response.data);
+
       })
       .catch(e => {
         console.log(e);

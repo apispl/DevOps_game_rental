@@ -11,7 +11,7 @@ services:
             - POSTGRES_DB=postgres
             - POSTGRES_USER=postgres 
         volumes: 
-            - C:/Users/krlpl/Desktop/Backup_06.04.2021/Programowanie/DevOps/game_rental_postgres:/var/lib/postgressql/data 
+            - C:/Code/DevOps/project_game_rental/game_rental_postgres:/var/lib/postgressql/data
         # ports:
         #     - "6432:5432"
     mybackend:
@@ -22,18 +22,29 @@ services:
               #bookmark - "zostaw folder taki jaki jest" -> tego katalogu nie ruszaj
             - /opt/app/node_modules
               #zeby widział ze sa zmiany w kodzie podczas developmentu, mapuje biezacy na wewnętrzny
-            - C:/Users/krlpl/Desktop/Backup_06.04.2021/Programowanie/DevOps/project_game_rental/game_rental_backend:/opt/app
+            - C:/Code/DevOps/project_game_rental/game_rental_backend:/opt/app
+
         environment: 
             - POSTGRES_PASSWORD=karol123
             - POSTGRES_DB=postgres
             - POSTGRES_USER=postgres 
             - REDIS_HOST=myredis
             - POSTGRES_HOST=mypostgres
+    myfrontend:
+        build:
+            dockerfile: Dockerfile
+            context: './game-rental-frontend'
+        environment: 
+            CHOKIDAR_USEPOLLING: 'true'
+        volumes: 
+            - /opt/app/node_modules
+            - C:/Code/DevOps/project_game_rental/game-rental-frontend/:/opt/app
+        # ports: 
+        #     - "3000:3000"
+    mynginx:
+        restart: always
+        build: 
+            dockerfile: Dockerfile
+            context: './game_rental_nginx'
         ports: 
-            - "5000:5000"
-    # myfrontendreact:
-    #     build:
-    #         dockerfile: Dockerfile
-    #         context: './game-rental-frontend'
-    #     ports: 
-    #         - "3000:3000"
+            - '9090:80'
