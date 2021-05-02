@@ -66,6 +66,7 @@ export default class GameList extends Component {
         this.setState({
           games: response.data
         });
+
       })
       .catch(e => {
         console.log(e);

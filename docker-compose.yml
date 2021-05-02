@@ -11,7 +11,7 @@ services:
             - POSTGRES_DB=postgres
             - POSTGRES_USER=postgres 
         volumes: 
-            - C:/Code/DevOps/project_game_rental/game_rental_postgres:/var/lib/postgressql/data 
+            - C:/Code/DevOps/project_game_rental/game_rental_postgres:/var/lib/postgressql/data
         # ports:
         #     - "6432:5432"
     mybackend:
@@ -23,14 +23,13 @@ services:
             - /opt/app/node_modules
               #zeby widział ze sa zmiany w kodzie podczas developmentu, mapuje biezacy na wewnętrzny
             - C:/Code/DevOps/project_game_rental/game_rental_backend:/opt/app
+
         environment: 
             - POSTGRES_PASSWORD=karol123
             - POSTGRES_DB=postgres
             - POSTGRES_USER=postgres 
             - REDIS_HOST=myredis
             - POSTGRES_HOST=mypostgres
-        # ports: 
-        #     - "5000:5000"
     myfrontend:
         build:
             dockerfile: Dockerfile

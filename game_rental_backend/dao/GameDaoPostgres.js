@@ -64,7 +64,6 @@ const getGameById = (request, response) => {
 
 const createGame = (request, response) => {
   const { id, title, publishDate, manufacturer } = request.body
-  console.log(request.body);
   
   pgClient.query('INSERT INTO games (title, publishDate, manufacturer) VALUES ($1, $2, $3)', [title, publishDate, manufacturer], (error, result) => {
     if (error) throw error;
@@ -73,8 +72,6 @@ const createGame = (request, response) => {
 
   pgClient.query('SELECT MAX(id) FROM games', (error, results) => {
     if (error) throw error;
-    console.log('Postgres ID:' + results.rows[0].max);
-    console.log('Redis ID:' + results.rows[0].max+1);
     redisClient.hmset(results.rows[0].max, 'id', results.rows[0].max, 'title', title, "publishDate", publishDate, 'manufacturer', manufacturer);
   });
 }

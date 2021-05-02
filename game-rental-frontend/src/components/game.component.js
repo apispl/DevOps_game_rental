@@ -78,6 +78,7 @@ export default class GameOne extends Component {
       updateGame() {
         gameService.update(
           this.state.currentGame.id,
+
           this.state.currentGame
         )
           .then(response => {
