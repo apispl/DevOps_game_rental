@@ -64,9 +64,8 @@ export default class GameOne extends Component {
       getGame(id) {
         gameService.get(id)
           .then(response => {
-            console.log(response.data);
             this.setState({
-              currentGame: response.data
+              currentGame: response
             });
             console.log(response.data);
           })

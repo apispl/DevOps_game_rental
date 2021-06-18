@@ -3,7 +3,7 @@ FROM node:alpine
 # zawsze ustawiać, nie opiszczać bo mozemy zaśmiecić
 WORKDIR /opt/app
 
-COPY ./package.json ./
+COPY ./ ./
 
 RUN yarn install
 

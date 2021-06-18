@@ -56,7 +56,7 @@ export default class AddGame extends Component {
     
               submitted: true
             });
-            console.log(response.data);
+            console.log(response);
           })
           .catch(e => {
             console.log(e);

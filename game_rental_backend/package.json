@@ -12,6 +12,7 @@
     "redis": "^3.0.2"
   },
   "scripts": {
-    "start": "nodemon --legacy-watch"
+    "start": "node index.js",
+    "dev": "nodemon --legacy-watch"
   }
 }

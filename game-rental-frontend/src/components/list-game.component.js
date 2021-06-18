@@ -53,6 +53,7 @@ export default class GameList extends Component {
   }
 
   setActiveGame(game, index) {
+    console.log('index:' + index)
     this.setState({
       currentGame: game,
       currentIndex: index
