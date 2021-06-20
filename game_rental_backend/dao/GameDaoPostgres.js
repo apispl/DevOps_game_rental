@@ -57,7 +57,13 @@ const getGameById = (request, response) => {
     } else {
       pgClient.query('SELECT * FROM games WHERE id = $1', [id], (error, results) => {
         if (error) throw error;
-        response.status(200).json(results.rows)
+        const gameNew = {
+          id: results.rows[0].id,
+          title: results.rows[0].title,
+          publishDate: results.rows[0].publishdate,
+          manufacturer: results.rows[0].manufacturer,
+        }
+        response.status(200).json(gameNew)
       })
     }
   });

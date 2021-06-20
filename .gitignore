@@ -1,3 +1,5 @@
 k8s/game_rental_backend/node_modules/
 game_rental/
 game_rental_backend/node_modules/
+k8snginx/game_rental_backend/node_modules/
+k8snginx/game_rental_frontend/node_modules/

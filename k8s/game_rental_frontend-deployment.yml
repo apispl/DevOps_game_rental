@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+
+kind: Deployment
+
+metadata:
+    name: game-rental-frontend-deployment
+    labels:
+        app: my-app
+        component: frontend
+
+spec:
+    template:
+        metadata:
+            name: myfrontend-pod
+            labels:
+                app: my-app
+                component: frontend
+        spec:
+            containers:
+                - name: myfrontend-container
+                  image: apispl/game_rental_frontend_k8s
+
+    replicas: 1 
+    selector:
+        matchLabels:
+            app: my-app
+            component: frontend

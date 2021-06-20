@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mynginx-deployment
+  labels:
+    component: web
+    app: my-app
+
+spec:
+  template:
+    metadata:
+      name: my-nginx-pod
+      labels:
+        component: web
+        app: my-app
+    spec:
+      containers:
+        - name: my-nginx-container
+          image: apispl/game_rental_frontend_nginx
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-app
+      component: web

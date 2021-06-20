@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: myredis-config
+
+data:
+  REDISHOST: myredis-clusterip

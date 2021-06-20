@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myredis-deployment
+  labels:
+    app: myredis
+    type: cache
+
+spec:
+  template:
+    metadata:
+      name: myredis-pod
+      namespace: app
+      labels:
+        app: myredis
+        type: cache
+    spec:
+      containers:
+        - name: myredis-container
+          image: redis:alpine
+          env:
+            - name: REDISHOST
+              valueFrom: 
+                configMapKeyRef:
+                  name: myredis-config
+                  key: REDISHOST
+  replicas: 1
+  selector:
+    matchLabels:
+      app: myredis
+      type: cache
