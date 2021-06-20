@@ -22,6 +22,6 @@ spec:
             pathType: Prefix
             backend: 
               service: 
-                name: game-rental-frontend-clusterip
+                name: mynginx-clusterip
                 port:
                   number: 80
